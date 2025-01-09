@@ -9,7 +9,9 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.zewe.app",
+      "googleServicesFile": "./google-services.json"
     },
     "android": {
       "adaptiveIcon": {
