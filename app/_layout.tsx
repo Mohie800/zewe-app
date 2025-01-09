@@ -1,39 +1,44 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import * as Notifications from "expo-notifications";
+import { router, Stack } from "expo-router";
+import { NotificationProvider } from "@/context/NotificationContext";
+import { useEffect } from "react";
+import { getData } from "@/utils/localStorage";
+import { usePushStore } from "@/store/store";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+// Define types for notifications
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+export default function App() {
+  const handleLogin = async () => {
+    try {
+      const email = await getData("email");
+      const url = await getData<string>("url");
+      if (email) {
+        console.log(url);
+        // router.push("/home");
+        router.push({
+          pathname: "/home",
+          params: { url: url }, // Optional params
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
+    handleLogin();
+  }, []);
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <NotificationProvider>
+      <Stack screenOptions={{ headerShown: false, statusBarHidden: true }} />
+    </NotificationProvider>
   );
 }

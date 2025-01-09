@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "470225020344",
+    "project_id": "zewe-chat",
+    "storage_bucket": "zewe-chat.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:470225020344:android:e979689b7c41a799b11b4d",
+        "android_client_info": {
+          "package_name": "com.zewe.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUzFwfAkSZKjAnhZnJqgrD1KwwmObHTlA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
